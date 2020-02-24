@@ -12,35 +12,37 @@ namespace Rothbard_Engine
     class ComponentManager : IComponentManager
     {
         // DECLARE an IDictionary of type IList, call it '_components'
-        private IDictionary<string, IList<IComponent>> _components;
+        private IDictionary<Type, IList<IComponent>> _components;
 
         // DECLARE an IDictionary of type IDictionary, call it '_entityComponentLink'
-        private IDictionary<Guid, IDictionary<string, IComponent>> _entityComponentLink;
+        private IDictionary<Guid, IDictionary<Type, IComponent>> _entityComponentLink;
 
         /// <summary>
         /// Constructor for the ComponentManager
         /// </summary>
         public ComponentManager()
         {
-            _components = new Dictionary<string, IList<IComponent>>();
+            // INSTANTIATE _components
+            _components = new Dictionary<Type, IList<IComponent>>();
 
-            _entityComponentLink = new Dictionary<Guid, IDictionary<string, IComponent>>();
+            // INSTANTIATE _entityComponentLink
+            _entityComponentLink = new Dictionary<Guid, IDictionary<Type, IComponent>>();
         }
 
         /// <summary>
         /// Returns an IList of all components with the requested name
         /// </summary>
-        /// <param name="pComponentName"></param>
-        public IList<IComponent> Get(string pComponentName)
+        /// <param name="pcomponentType"></param>
+        public IList<IComponent> Get(Type pcomponentType)
         {
             IList<IComponent> components = new List<IComponent>();
             if (_components.Keys != null)
             {
-                foreach (string componentName in _components.Keys)
+                foreach (Type componentType in _components.Keys)
                 {
-                    if (componentName == pComponentName)
+                    if (componentType == pcomponentType)
                     {
-                        foreach (IComponent component in _components[componentName])
+                        foreach (IComponent component in _components[componentType])
                         {
                             components.Add(component);
                         }
@@ -90,8 +92,8 @@ namespace Rothbard_Engine
         /// Terminates a single component with the requested name and associated with the requested entity
         /// </summary>
         /// <param name="pEntity"></param>
-        /// <param name="pComponentName"></param>
-        public void Terminate(Guid pEntity, string pComponentName)
+        /// <param name="pcomponentType"></param>
+        public void Terminate(Guid pEntity, Type pcomponentType)
         {
 
         }
@@ -99,22 +101,22 @@ namespace Rothbard_Engine
         /// <summary>
         /// Terminates all components associated with the requested name
         /// </summary>
-        /// <param name="pComponentName"></param>
-        public void Terminate(string pComponentName)
+        /// <param name="pcomponentType"></param>
+        public void Terminate(Type pcomponentType)
         {
 
         }
 
-        public void Request(IComponent pComponent, string pComponentName, Guid pEntity)
+        public void Request(IComponent pComponent, Guid pEntity)
         {        
             if (_components.Keys != null)
             {
                 bool componentFound = false;
-                foreach (string componentName in _components.Keys)
+                foreach (Type componentType in _components.Keys)
                 {
-                    if (componentName == pComponentName)
+                    if (componentType == pComponent.GetType())
                     {
-                        _components[componentName].Add(pComponent);
+                        _components[componentType].Add(pComponent);
                         componentFound = true;
                         Console.WriteLine("CM: Component addeded to existing list");
                         break;
@@ -123,7 +125,7 @@ namespace Rothbard_Engine
                 if (!componentFound)
                 {
                     IList<IComponent> newComponentList = new List<IComponent>();
-                    _components.Add(pComponentName, newComponentList);
+                    _components.Add(pComponent.GetType(), newComponentList);
                     Console.WriteLine("CM: Component addeded to new list");
                 }
             }
@@ -135,7 +137,7 @@ namespace Rothbard_Engine
                 {
                     if (entity == pEntity)
                     {
-                        _entityComponentLink[entity].Add(pComponentName, pComponent);
+                        _entityComponentLink[entity].Add(pComponent.GetType(), pComponent);
                         componentFound = true;
                         Console.WriteLine("CM: Component added to existing dictionary");
                         break;
@@ -143,7 +145,7 @@ namespace Rothbard_Engine
                 }
                 if (!componentFound)
                 {
-                    IDictionary<string, IComponent> _newComponentDictionary = new Dictionary<string, IComponent>();
+                    IDictionary<Type, IComponent> _newComponentDictionary = new Dictionary<Type, IComponent>();
                     _entityComponentLink.Add(pEntity, _newComponentDictionary);
                     Console.WriteLine("CM: Component addeded to new dictionary");
                 }

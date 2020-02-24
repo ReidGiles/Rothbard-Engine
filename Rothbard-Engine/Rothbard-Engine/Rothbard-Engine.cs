@@ -84,11 +84,11 @@ namespace Rothbard_Engine
         /// </summary>
         protected override void LoadContent()
         {
-            _systemManager.AddSystem(new RenderSystem());
+            _systemManager.AddSystem(new RenderSystem(_componentManager));
             Guid e1 = _entityManager.Request();
             Guid e2 = _entityManager.Request();
-            _componentManager.Request(new Position(), "position", e1);
-            _componentManager.Request(new Render(), "render", e1);
+            _componentManager.Request(new Position(), e1);
+            _componentManager.Request(new Render(), e1);
         }
 
         /// <summary>

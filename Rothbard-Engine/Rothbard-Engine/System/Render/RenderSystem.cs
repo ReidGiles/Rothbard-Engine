@@ -22,13 +22,16 @@ namespace Rothbard_Engine
         /// <summary>
         /// Constructorr for render system
         /// </summary>
-        public RenderSystem()
+        public RenderSystem(IComponentManager pComponentManager)
         {
             // INSTANTIATE _textures
             _textures = new Dictionary<Guid, Texture2D>();
 
             // INSTANTIATE _positions
             _positions = new Dictionary<Guid, Vector2>();
+
+            // Get an IList containing all active position components
+            IList<IComponent> postionList = pComponentManager.Get(new Position().GetType());
 
             Console.WriteLine("RS: Instantiated");
         }
