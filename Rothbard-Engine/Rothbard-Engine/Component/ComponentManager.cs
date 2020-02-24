@@ -104,7 +104,6 @@ namespace Rothbard_Engine
         /// <param name="pcomponentType"></param>
         public void Terminate(Type pcomponentType)
         {
-
         }
 
         public void Request(IComponent pComponent, Guid pEntity)

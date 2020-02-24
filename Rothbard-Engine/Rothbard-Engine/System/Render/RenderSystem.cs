@@ -31,7 +31,7 @@ namespace Rothbard_Engine
             _positions = new Dictionary<Guid, Vector2>();
 
             // Get an IList containing all active position components
-            IList<IComponent> postionList = pComponentManager.Get(new Position().GetType());
+            IList<IComponent> postionList = pComponentManager.Get(typeof(Position));
 
             Console.WriteLine("RS: Instantiated");
         }
