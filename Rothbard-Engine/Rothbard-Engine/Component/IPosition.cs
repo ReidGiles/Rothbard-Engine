@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    interface ISystem
+    interface IPosition
     {
-        void Set(IDictionary<Guid, IDictionary<Type, IComponent>> pDictionary);
+        float XPos { get; set; }
+        float YPos { get; set; }
     }
 }

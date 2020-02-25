@@ -45,6 +45,8 @@
     <Compile Include="Component\ComponentManager.cs" />
     <Compile Include="Component\IComponent.cs" />
     <Compile Include="Component\IComponentManager.cs" />
+    <Compile Include="Component\IPosition.cs" />
+    <Compile Include="Component\IRender.cs" />
     <Compile Include="Component\Position.cs" />
     <Compile Include="Component\Render.cs" />
     <Compile Include="Delegates.cs" />

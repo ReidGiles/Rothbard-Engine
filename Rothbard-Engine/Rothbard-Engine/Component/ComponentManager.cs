@@ -80,6 +80,15 @@ namespace Rothbard_Engine
         }
 
         /// <summary>
+        /// Return the entity component link dictionary
+        /// </summary>
+        /// <returns></returns>
+        public IDictionary<Guid, IDictionary<Type, IComponent>> Get()
+        {
+            return _entityComponentLink;
+        }
+
+        /// <summary>
         /// Terminates all components associated with the requested entity
         /// </summary>
         /// <param name="pEntity"></param>
@@ -106,9 +115,9 @@ namespace Rothbard_Engine
         {
         }
 
-        public void Request(IComponent pComponent, Guid pEntity)
+        public void Assign(IComponent pComponent, Guid pEntity)
         {        
-            if (_components.Keys != null)
+            /*if (_components.Keys != null)
             {
                 bool componentFound = false;
                 foreach (Type componentType in _components.Keys)
@@ -127,10 +136,11 @@ namespace Rothbard_Engine
                     _components.Add(pComponent.GetType(), newComponentList);
                     Console.WriteLine("CM: Component addeded to new list");
                 }
-            }
+            }*/
 
             if (_entityComponentLink.Keys != null)
             {
+
                 bool componentFound = false;
                 foreach (Guid entity in _entityComponentLink.Keys)
                 {
@@ -144,11 +154,13 @@ namespace Rothbard_Engine
                 }
                 if (!componentFound)
                 {
-                    IDictionary<Type, IComponent> _newComponentDictionary = new Dictionary<Type, IComponent>();
-                    _entityComponentLink.Add(pEntity, _newComponentDictionary);
+                    IDictionary<Type, IComponent> newComponentDictionary = new Dictionary<Type, IComponent>();
+                    newComponentDictionary.Add(pComponent.GetType(), pComponent);
+                    _entityComponentLink.Add(pEntity, newComponentDictionary);
                     Console.WriteLine("CM: Component addeded to new dictionary");
                 }
-            }            
+            }
+            
         }
     }
 }

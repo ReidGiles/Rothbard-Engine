@@ -8,8 +8,9 @@ namespace Rothbard_Engine
 {
     interface IComponentManager
     {
-        void Request(IComponent pComponent, Guid pEntity);
+        void Assign(IComponent pComponent, Guid pEntity);
         void Terminate(Guid pEntity);
         IList<IComponent> Get(Type pcomponentType);
+        IDictionary<Guid, IDictionary<Type, IComponent>> Get();
     }
 }

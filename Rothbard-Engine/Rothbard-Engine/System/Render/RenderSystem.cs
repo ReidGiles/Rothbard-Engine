@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -13,31 +14,57 @@ namespace Rothbard_Engine
     /// </summary>
     class RenderSystem : ISystem, IUpdatable
     {
-        // DECLARE an IDictionary of type Texture2D, call it '_textures'
-        private IDictionary<Guid, Texture2D> _textures;
+        // DECLARE an IDictionary of type IDictionary, call it '_entityComponentLink'
+        private IDictionary<Guid, IDictionary<Type, IComponent>> _entityComponentLink;
 
-        // DECLARE an IDictionary of type Vector2, call it '_positions'
-        private IDictionary<Guid, Vector2> _positions;
+        // DECLARE a SpriteBatch, call it '_spriteBatch'
+        private SpriteBatch _spriteBatch;
+
+        // DECLARE a GraphicsDeviceManager, call it '_graphicsDeviceManager'
+        private GraphicsDeviceManager _graphicsDeviceManager;
+
+        private ContentManager _contentManager;
 
         /// <summary>
         /// Constructorr for render system
         /// </summary>
-        public RenderSystem(IComponentManager pComponentManager)
+        public RenderSystem(SpriteBatch pSpriteBatch, GraphicsDeviceManager pGraphicsDeviceManager, ContentManager pContentManager)
         {
-            // INSTANTIATE _textures
-            _textures = new Dictionary<Guid, Texture2D>();
+            // INSTANTIATE _entityComponentLink
+            _entityComponentLink = new Dictionary<Guid, IDictionary<Type, IComponent>>();
 
-            // INSTANTIATE _positions
-            _positions = new Dictionary<Guid, Vector2>();
+            // Create a new SpriteBatch, which can be used to draw textures.
+            _spriteBatch = pSpriteBatch;
+
+            _graphicsDeviceManager = pGraphicsDeviceManager;
+
+            _contentManager = pContentManager;
 
             // Get an IList containing all active position components
-            IList<IComponent> postionList = pComponentManager.Get(typeof(Position));
+            //IList<IComponent> postionList = pComponentManager.Get(typeof(Position));
 
             Console.WriteLine("RS: Instantiated");
         }
 
+        public void Set(IDictionary<Guid, IDictionary<Type, IComponent>> pDictionary)
+        {
+            _entityComponentLink = pDictionary;
+        }
+
         public void Update(GameTime pGameTime)
         {
+            _spriteBatch.Begin();
+            // FOREACH entity in the entity component link dictionary -> render the entity onto the scene
+            foreach (Guid entity in _entityComponentLink.Keys)
+            {
+                float x = ((IPosition)_entityComponentLink[entity][typeof(Position)]).XPos;
+                float y = ((IPosition)_entityComponentLink[entity][typeof(Position)]).YPos;
+                Texture2D texture = ((IRender)_entityComponentLink[entity][typeof(Render)]).Texture;
+                _spriteBatch.Draw(texture, new Vector2(x, y), Color.White);
+            }
+            //_spriteBatch.Draw(, new Vector2(400, 240), Color.White);
+            _spriteBatch.End();
+            
         }
     }
 }

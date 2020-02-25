@@ -12,13 +12,19 @@ namespace Rothbard_Engine
         // DECLARE an IList of type ISystem, call it '_systems'
         private IList<ISystem> _systems;
 
+        // DECLARE an IComponentManager, call it '_componentManager'
+        private IComponentManager _componentManager;
+
         /// <summary>
         /// Constructor for SystemManager
         /// </summary>
-        public SystemManager()
+        public SystemManager(IComponentManager pComponentManager)
         {
             // INSTANTIATE _systems
             _systems = new List<ISystem>();
+
+            // INSTANTIATE _componentManager
+            _componentManager = pComponentManager;
         }
 
         /// <summary>
@@ -56,6 +62,7 @@ namespace Rothbard_Engine
             foreach (ISystem s in _systems)
             {
                 ((IUpdatable)s).Update(pGameTime);
+                s.Set(_componentManager.Get());
             }
         }
     }

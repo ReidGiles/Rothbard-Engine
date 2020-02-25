@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 namespace Rothbard_Engine
 {
-    delegate void SetPositionComponent(Guid pGuid, float pX, float pY);
-    delegate void Set(Guid pGuid, Texture2D pTexture2D);
+    delegate void GetComponents(IDictionary<Guid, IDictionary<Type, IComponent>> pDictionary);
 }

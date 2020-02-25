@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    interface ISystem
+    interface IRender
     {
-        void Set(IDictionary<Guid, IDictionary<Type, IComponent>> pDictionary);
+        Texture2D Texture { get; set; }
     }
 }

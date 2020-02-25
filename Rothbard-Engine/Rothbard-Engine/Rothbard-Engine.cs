@@ -38,6 +38,8 @@ namespace Rothbard_Engine
         /// </summary>j
         private ISystemManager _systemManager;
 
+        private SpriteBatch _spriteBatch;
+
         public RothbardEngine()
         {
             // INSTANTIATE graphics device manager
@@ -73,7 +75,7 @@ namespace Rothbard_Engine
             _inputManager = new InputManager();
 
             // INSTANTIATE scene manager
-            _systemManager = new SystemManager();
+            _systemManager = new SystemManager(_componentManager);
 
             base.Initialize();
         }
@@ -84,11 +86,19 @@ namespace Rothbard_Engine
         /// </summary>
         protected override void LoadContent()
         {
-            _systemManager.AddSystem(new RenderSystem(_componentManager));
-            Guid e1 = _entityManager.Request();
-            Guid e2 = _entityManager.Request();
-            _componentManager.Request(new Position(), e1);
-            _componentManager.Request(new Render(), e1);
+            // Create a new SpriteBatch, which can be used to draw textures.
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            _systemManager.AddSystem(new RenderSystem(_spriteBatch, _graphics, Content));
+            Guid e1 = _entityManager.Request(); Guid e2 = _entityManager.Request();
+            Position e1p = new Position(); e1p.XPos = 5; e1p.YPos = 5;
+            Position e2p = new Position(); e2p.XPos = 50; e2p.YPos = 50;
+            Render e1r = new Render(); e1r.Texture = Content.Load<Texture2D>("Hostile");
+            Render e2r = new Render(); e2r.Texture = Content.Load<Texture2D>("Hostile");
+            _componentManager.Assign(e1p, e1);
+            _componentManager.Assign(e1r, e1);
+            _componentManager.Assign(e2p, e2);
+            _componentManager.Assign(e2r, e2);
         }
 
         /// <summary>
@@ -106,6 +116,8 @@ namespace Rothbard_Engine
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            //((IUpdatable)_systemManager).Update(gameTime);
+            ((IUpdatable)_entityManager).Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -116,10 +128,7 @@ namespace Rothbard_Engine
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Transparent);
-
             ((IUpdatable)_systemManager).Update(gameTime);
-            ((IUpdatable)_entityManager).Update(gameTime);
-
             base.Draw(gameTime);
         }
     }
