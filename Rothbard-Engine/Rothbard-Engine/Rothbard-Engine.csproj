@@ -41,17 +41,23 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Component\Component.cs" />
     <Compile Include="Component\ComponentManager.cs" />
     <Compile Include="Component\IComponent.cs" />
     <Compile Include="Component\IComponentManager.cs" />
+    <Compile Include="Component\IMove.cs" />
+    <Compile Include="Component\InputListener.cs" />
     <Compile Include="Component\IPosition.cs" />
     <Compile Include="Component\IRender.cs" />
+    <Compile Include="Component\Move.cs" />
     <Compile Include="Component\Position.cs" />
     <Compile Include="Component\Render.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="Entity\EntityManager.cs" />
     <Compile Include="Entity\IEntityManager.cs" />
+    <Compile Include="Input\IKeyboardInput.cs" />
+    <Compile Include="Input\IKeyboardListener.cs" />
+    <Compile Include="Input\IMouseInput.cs" />
+    <Compile Include="Input\IMouseListener.cs" />
     <Compile Include="Rothbard-Engine.cs" />
     <Compile Include="Input\IInputHandler.cs" />
     <Compile Include="Input\IInputManager.cs" />
@@ -66,6 +72,7 @@
     <Compile Include="Scene\SceneManager.cs" />
     <Compile Include="System\ISystem.cs" />
     <Compile Include="System\ISystemManager.cs" />
+    <Compile Include="System\Move\MoveSystem.cs" />
     <Compile Include="System\Render\RenderSystem.cs" />
     <Compile Include="System\System.cs" />
     <Compile Include="System\SystemManager.cs" />

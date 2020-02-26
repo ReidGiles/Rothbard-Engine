@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    interface IInputManager
+    interface IKeyboardListener
     {
-        void AddListener(EventHandler<IKeyboardInput> handler);
-        void AddListener(EventHandler<IMouseInput> handler);
+        void OnNewKeyboardInput(object sender, IKeyboardInput args);
     }
 }

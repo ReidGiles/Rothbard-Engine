@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rothbard_Engine
+namespace Rothbard_Engine.Input
 {
-    class Component
+    interface IMouseListener
     {
+        void OnNewMouseInput(object sender, IMouseInput args);
     }
 }

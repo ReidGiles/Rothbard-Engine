@@ -90,15 +90,29 @@ namespace Rothbard_Engine
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _systemManager.AddSystem(new RenderSystem(_spriteBatch, _graphics, Content));
+
+            MoveSystem moveSystem = new MoveSystem();
+            _inputManager.AddListener(((IKeyboardListener)moveSystem).OnNewKeyboardInput);
+            _systemManager.AddSystem(moveSystem);
+
+
             Guid e1 = _entityManager.Request(); Guid e2 = _entityManager.Request();
             Position e1p = new Position(); e1p.XPos = 5; e1p.YPos = 5;
             Position e2p = new Position(); e2p.XPos = 50; e2p.YPos = 50;
             Render e1r = new Render(); e1r.Texture = Content.Load<Texture2D>("Hostile");
             Render e2r = new Render(); e2r.Texture = Content.Load<Texture2D>("Hostile");
+            Move e1m = new Move(); e1m.Velocity = new Vector2(7, 7);
+            Move e2m = new Move(); e2m.Velocity = new Vector2(1, 1);
+            InputListener e1i = new InputListener(); e1i.KeyboardListener = true;
+            InputListener e2i = new InputListener(); e2i.KeyboardListener = false;
             _componentManager.Assign(e1p, e1);
             _componentManager.Assign(e1r, e1);
+            _componentManager.Assign(e1m, e1);
+            _componentManager.Assign(e1i, e1);
             _componentManager.Assign(e2p, e2);
             _componentManager.Assign(e2r, e2);
+            _componentManager.Assign(e2m, e2);
+            _componentManager.Assign(e2i, e2);
         }
 
         /// <summary>
@@ -118,6 +132,7 @@ namespace Rothbard_Engine
         {
             //((IUpdatable)_systemManager).Update(gameTime);
             ((IUpdatable)_entityManager).Update(gameTime);
+            ((IUpdatable)_inputManager).Update(gameTime);
             base.Update(gameTime);
         }
 
