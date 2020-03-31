@@ -41,7 +41,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Component\Collider.cs" />
     <Compile Include="Component\ComponentManager.cs" />
+    <Compile Include="Component\ICollider.cs" />
     <Compile Include="Component\IComponent.cs" />
     <Compile Include="Component\IComponentManager.cs" />
     <Compile Include="Component\IMove.cs" />
@@ -70,11 +72,11 @@
     <Compile Include="Scene\ISceneManager.cs" />
     <Compile Include="Scene\SceneGraph.cs" />
     <Compile Include="Scene\SceneManager.cs" />
+    <Compile Include="System\Collision\CollisionSystem.cs" />
     <Compile Include="System\ISystem.cs" />
     <Compile Include="System\ISystemManager.cs" />
     <Compile Include="System\Move\MoveSystem.cs" />
     <Compile Include="System\Render\RenderSystem.cs" />
-    <Compile Include="System\System.cs" />
     <Compile Include="System\SystemManager.cs" />
     <Compile Include="System\Update\IUpdatable.cs" />
   </ItemGroup>

@@ -16,8 +16,11 @@ namespace Demo
 
         private void Begin()
         {
-            Spawn(5, 5, LoadTexture("Hostile"), new Vector2(17, 17), true, false);
-            Spawn(5, 5, LoadTexture("Hostile"), new Vector2(2, 2), false, false);
+            Spawn(700, 100, LoadTexture("Hostile"), new Vector2(17, 17), true, false);
+            Spawn(5, 50, LoadTexture("Hostile"), new Vector2(2, 0), false, false);
+            Spawn(5, 250, LoadTexture("Hostile"), new Vector2(2, 0), false, false);
+            Spawn(5, 450, LoadTexture("Hostile"), new Vector2(2, 0), false, false);
+            Spawn(5, 650, LoadTexture("Hostile"), new Vector2(2, 0), false, false);
         }
 
         /// <summary>

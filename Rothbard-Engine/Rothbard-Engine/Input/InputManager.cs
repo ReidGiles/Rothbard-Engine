@@ -21,7 +21,6 @@ namespace Rothbard_Engine
         /// </summary>
         public InputManager()
         {
-
         }
 
         /// <summary>

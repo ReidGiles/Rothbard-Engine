@@ -91,12 +91,13 @@ namespace Rothbard_Engine
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            _systemManager.AddSystem(new RenderSystem(_spriteBatch, _graphics, Content));
-
+        
             MoveSystem moveSystem = new MoveSystem();
             _inputManager.AddListener(((IKeyboardListener)moveSystem).OnNewKeyboardInput);
+
             _systemManager.AddSystem(moveSystem);
+            _systemManager.AddSystem(new RenderSystem(_spriteBatch, _graphics, Content));
+            _systemManager.AddSystem(new CollisionSystem());
 
             // Declare engine ready for use
             _ready = true;
@@ -137,18 +138,25 @@ namespace Rothbard_Engine
         public Guid Spawn(float xPos, float yPos, Texture2D texture, Vector2 velocity, bool keyboardListener, bool mouseListener)
         {
             Guid entity = _entityManager.Request();
+
             IComponent position = _componentManager.Request<Position>();
             IComponent render = _componentManager.Request<Render>();
             IComponent move = _componentManager.Request<Move>();
             IComponent inputListener = _componentManager.Request<InputListener>();
+            IComponent collider = _componentManager.Request<Collider>();
+
             ((Position)position).XPos = xPos; ((Position)position).YPos = yPos;
             ((Render)render).Texture = texture;
             ((Move)move).Velocity = velocity;
             ((InputListener)inputListener).KeyboardListener = keyboardListener; ((InputListener)inputListener).MouseListener = mouseListener;
+            ((Collider)collider).Rectangle = new Rectangle(Convert.ToInt32(xPos), Convert.ToInt32(yPos), texture.Width, texture.Height);
+
             _componentManager.Assign(position, entity);
             _componentManager.Assign(render, entity);
             _componentManager.Assign(move, entity);
             _componentManager.Assign(inputListener, entity);
+            _componentManager.Assign(collider, entity);
+
             return entity;
         }
 
