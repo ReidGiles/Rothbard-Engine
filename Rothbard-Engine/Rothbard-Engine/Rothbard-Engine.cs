@@ -40,6 +40,9 @@ namespace Rothbard_Engine
 
         private SpriteBatch _spriteBatch;
 
+        // boolean to declare the engine ready for use
+        public bool _ready;
+
         public RothbardEngine()
         {
             // INSTANTIATE graphics device manager
@@ -95,24 +98,8 @@ namespace Rothbard_Engine
             _inputManager.AddListener(((IKeyboardListener)moveSystem).OnNewKeyboardInput);
             _systemManager.AddSystem(moveSystem);
 
-
-            Guid e1 = _entityManager.Request(); Guid e2 = _entityManager.Request();
-            Position e1p = new Position(); e1p.XPos = 5; e1p.YPos = 5;
-            Position e2p = new Position(); e2p.XPos = 50; e2p.YPos = 50;
-            Render e1r = new Render(); e1r.Texture = Content.Load<Texture2D>("Hostile");
-            Render e2r = new Render(); e2r.Texture = Content.Load<Texture2D>("Hostile");
-            Move e1m = new Move(); e1m.Velocity = new Vector2(7, 7);
-            Move e2m = new Move(); e2m.Velocity = new Vector2(1, 1);
-            InputListener e1i = new InputListener(); e1i.KeyboardListener = true;
-            InputListener e2i = new InputListener(); e2i.KeyboardListener = false;
-            _componentManager.Assign(e1p, e1);
-            _componentManager.Assign(e1r, e1);
-            _componentManager.Assign(e1m, e1);
-            _componentManager.Assign(e1i, e1);
-            _componentManager.Assign(e2p, e2);
-            _componentManager.Assign(e2r, e2);
-            _componentManager.Assign(e2m, e2);
-            _componentManager.Assign(e2i, e2);
+            // Declare engine ready for use
+            _ready = true;
         }
 
         /// <summary>
@@ -145,6 +132,29 @@ namespace Rothbard_Engine
             GraphicsDevice.Clear(Color.Transparent);
             ((IUpdatable)_systemManager).Update(gameTime);
             base.Draw(gameTime);
+        }
+
+        public Guid Spawn(float xPos, float yPos, Texture2D texture, Vector2 velocity, bool keyboardListener, bool mouseListener)
+        {
+            Guid entity = _entityManager.Request();
+            IComponent position = _componentManager.Request<Position>();
+            IComponent render = _componentManager.Request<Render>();
+            IComponent move = _componentManager.Request<Move>();
+            IComponent inputListener = _componentManager.Request<InputListener>();
+            ((Position)position).XPos = xPos; ((Position)position).YPos = yPos;
+            ((Render)render).Texture = texture;
+            ((Move)move).Velocity = velocity;
+            ((InputListener)inputListener).KeyboardListener = keyboardListener; ((InputListener)inputListener).MouseListener = mouseListener;
+            _componentManager.Assign(position, entity);
+            _componentManager.Assign(render, entity);
+            _componentManager.Assign(move, entity);
+            _componentManager.Assign(inputListener, entity);
+            return entity;
+        }
+
+        public Texture2D LoadTexture(string filename)
+        {
+            return Content.Load<Texture2D>(filename);
         }
     }
 }

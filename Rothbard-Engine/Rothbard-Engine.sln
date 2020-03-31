@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rothbard-Engine", "Rothbard-Engine\Rothbard-Engine.csproj", "{D73882F8-BF0F-4B73-A15A-6A9CB8A34E9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{DCB197F5-D557-4009-BD25-C71F28FAFF5B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D73882F8-BF0F-4B73-A15A-6A9CB8A34E9F} = {D73882F8-BF0F-4B73-A15A-6A9CB8A34E9F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +24,12 @@ Global
 		{D73882F8-BF0F-4B73-A15A-6A9CB8A34E9F}.Release|Any CPU.ActiveCfg = Release|x86
 		{D73882F8-BF0F-4B73-A15A-6A9CB8A34E9F}.Release|x86.ActiveCfg = Release|x86
 		{D73882F8-BF0F-4B73-A15A-6A9CB8A34E9F}.Release|x86.Build.0 = Release|x86
+		{DCB197F5-D557-4009-BD25-C71F28FAFF5B}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{DCB197F5-D557-4009-BD25-C71F28FAFF5B}.Debug|x86.ActiveCfg = Debug|x86
+		{DCB197F5-D557-4009-BD25-C71F28FAFF5B}.Debug|x86.Build.0 = Debug|x86
+		{DCB197F5-D557-4009-BD25-C71F28FAFF5B}.Release|Any CPU.ActiveCfg = Release|x86
+		{DCB197F5-D557-4009-BD25-C71F28FAFF5B}.Release|x86.ActiveCfg = Release|x86
+		{DCB197F5-D557-4009-BD25-C71F28FAFF5B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -29,6 +29,11 @@ namespace Rothbard_Engine
             _entityComponentLink = new Dictionary<Guid, IDictionary<Type, IComponent>>();
         }
 
+        public IComponent Request<T>() where T : IComponent, new()
+        {
+            return new T();
+        }
+
         /// <summary>
         /// Returns an IList of all components with the requested name
         /// </summary>
