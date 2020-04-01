@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    interface IPosition
+    public interface IPosition
     {
         float XPos { get; set; }
         float YPos { get; set; }

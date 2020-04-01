@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    class Position : IComponent, IPosition
+    public class Position : IComponent, IPosition
     {
         public float XPos { get; set; }
         public float YPos { get; set; }

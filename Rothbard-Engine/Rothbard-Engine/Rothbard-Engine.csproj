@@ -46,6 +46,7 @@
     <Compile Include="Component\ICollider.cs" />
     <Compile Include="Component\IComponent.cs" />
     <Compile Include="Component\IComponentManager.cs" />
+    <Compile Include="Component\IInputListener.cs" />
     <Compile Include="Component\IMove.cs" />
     <Compile Include="Component\InputListener.cs" />
     <Compile Include="Component\IPosition.cs" />
@@ -72,7 +73,11 @@
     <Compile Include="Scene\ISceneManager.cs" />
     <Compile Include="Scene\SceneGraph.cs" />
     <Compile Include="Scene\SceneManager.cs" />
+    <Compile Include="System\Collision\CollisionHandler.cs" />
     <Compile Include="System\Collision\CollisionSystem.cs" />
+    <Compile Include="System\Collision\ICollisionInput.cs" />
+    <Compile Include="System\Collision\ICollisionListener.cs" />
+    <Compile Include="System\Collision\ICollisionPublisher.cs" />
     <Compile Include="System\ISystem.cs" />
     <Compile Include="System\ISystemManager.cs" />
     <Compile Include="System\Move\MoveSystem.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    interface IMove
+    public interface IMove
     {
         Vector2 Velocity { get; set; }
         Vector2 Acceleration { get; set; }

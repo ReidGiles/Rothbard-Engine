@@ -26,7 +26,7 @@ namespace Rothbard_Engine
         /// <summary>
         /// Publisher method, contacts all listeners
         /// </summary>
-        protected virtual void OnNewKeyboardInput()
+        private void OnNewKeyboardInput()
         {
             // pass the parameters into the new keybaord input then add to NewKeyboardInput
             IKeyboardInput args = new KeyboardHandler();

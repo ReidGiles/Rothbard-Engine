@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    public class InputListener : IComponent, IInputListener
+    public interface IInputListener
     {
-        public bool KeyboardListener { get; set; }
-        public bool MouseListener { get; set; }
+        bool KeyboardListener { get; set; }
+        bool MouseListener { get; set; }
     }
 }

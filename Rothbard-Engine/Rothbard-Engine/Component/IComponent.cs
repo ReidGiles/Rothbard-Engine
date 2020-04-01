@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    interface IComponent
+    public interface IComponent
     {
     }
 }

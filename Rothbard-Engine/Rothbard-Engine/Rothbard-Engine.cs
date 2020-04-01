@@ -34,6 +34,11 @@ namespace Rothbard_Engine
         private IInputManager _inputManager;
 
         /// <summary>
+        /// The collision system
+        /// </summary>
+        private ISystem _collisionSystem;
+
+        /// <summary>
         /// The ssystem manager
         /// </summary>j
         private ISystemManager _systemManager;
@@ -77,6 +82,9 @@ namespace Rothbard_Engine
             // INSTANTIATE input manager
             _inputManager = new InputManager();
 
+            // INSTANTIATE collision system
+            _collisionSystem = new CollisionSystem();
+
             // INSTANTIATE scene manager
             _systemManager = new SystemManager(_componentManager);
 
@@ -97,7 +105,7 @@ namespace Rothbard_Engine
 
             _systemManager.AddSystem(moveSystem);
             _systemManager.AddSystem(new RenderSystem(_spriteBatch, _graphics, Content));
-            _systemManager.AddSystem(new CollisionSystem());
+            _systemManager.AddSystem(_collisionSystem);
 
             // Declare engine ready for use
             _ready = true;
@@ -163,6 +171,15 @@ namespace Rothbard_Engine
         public Texture2D LoadTexture(string filename)
         {
             return Content.Load<Texture2D>(filename);
+        }
+
+        /// <summary>
+        /// Subscribe a collision listener
+        /// </summary>
+        /// <param name="listener"></param>
+        public void SubscribeListener(ICollisionListener listener)
+        {
+            ((ICollisionPublisher)_collisionSystem).AddListener(listener.OnNewCollision);
         }
     }
 }

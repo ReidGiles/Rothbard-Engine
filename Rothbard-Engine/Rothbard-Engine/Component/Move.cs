@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    class Move : IComponent, IMove
+    public class Move : IComponent, IMove
     {
         public Vector2 Velocity { get; set; }
         public Vector2 Acceleration { get; set; }

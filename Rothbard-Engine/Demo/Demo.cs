@@ -8,19 +8,22 @@ namespace Demo
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : RothbardEngine
+    public class Demo : RothbardEngine
     {
-        public Game1()
+        private World _world;
+
+        /// <summary>
+        /// Constructor for Demo
+        /// </summary>
+        public Demo()
         {
+            _world = new World(this);
         }
 
         private void Begin()
         {
-            Spawn(700, 100, LoadTexture("Hostile"), new Vector2(17, 17), true, false);
-            Spawn(5, 50, LoadTexture("Hostile"), new Vector2(2, 0), false, false);
-            Spawn(5, 250, LoadTexture("Hostile"), new Vector2(2, 0), false, false);
-            Spawn(5, 450, LoadTexture("Hostile"), new Vector2(2, 0), false, false);
-            Spawn(5, 650, LoadTexture("Hostile"), new Vector2(2, 0), false, false);
+            SubscribeListener(_world);
+            _world.Load();
         }
 
         /// <summary>

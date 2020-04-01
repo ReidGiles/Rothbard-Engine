@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    public class InputListener : IComponent, IInputListener
+    public interface ICollisionListener
     {
-        public bool KeyboardListener { get; set; }
-        public bool MouseListener { get; set; }
+        void OnNewCollision(object sender, ICollisionInput args);
     }
 }
