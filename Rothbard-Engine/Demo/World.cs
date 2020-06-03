@@ -41,6 +41,7 @@ namespace Demo
             Guid entity2 = args.GetEntityKeys()[1];
             ((IMove)args.GetEntityComponents()[entity2][typeof(Move)]).Velocity = ((IMove)args.GetEntityComponents()[entity1][typeof(Move)]).Velocity;
             ((IInputListener)args.GetEntityComponents()[entity2][typeof(InputListener)]).KeyboardListener = true;
+            //((IPosition)args.GetEntityComponents()[entity1][typeof(Position)]).XPos += ((IMove)args.GetEntityComponents()[entity2][typeof(Move)]).Velocity.X;
         }
     }
 }

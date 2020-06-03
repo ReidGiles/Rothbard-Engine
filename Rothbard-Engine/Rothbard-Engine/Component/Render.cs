@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    class Render : IComponent, IRender
+    public class Render : IComponent, IRender
     {
         public Texture2D Texture { get; set; }
     }

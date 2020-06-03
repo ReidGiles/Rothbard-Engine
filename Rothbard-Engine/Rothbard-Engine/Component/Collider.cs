@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    class Collider : IComponent, ICollider
+    public class Collider : IComponent, ICollider
     {
         public Rectangle Rectangle { get; set; }
         public string Tag { get; set; }
