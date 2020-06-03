@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    interface IKeyboardInput
+    public interface IKeyboardInput
     {
         /// <summary>
         /// Returns keys pressed on keyboard

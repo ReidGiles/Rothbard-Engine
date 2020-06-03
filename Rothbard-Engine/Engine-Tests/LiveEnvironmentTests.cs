@@ -1,18 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Xna.Framework;
 using Rothbard_Engine;
 
 namespace Engine_Tests
 {
-    class LiveEnvironmentTests
+    [TestClass]
+    public class LiveEnvironmentTests
     {
-        [TestMethod]
-        public void TestMethod1()
-        {
-            // Arrange
-
-            // Act
-
-            // Assert
-        }
     }
 }

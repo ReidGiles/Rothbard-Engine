@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    class CollisionSystem : ISystem, ICollisionPublisher, IUpdatable
+    public class CollisionSystem : ISystem, ICollisionPublisher, IUpdatable
     {
         // DECLARE an IDictionary of type IDictionary, call it '_entityComponentLink'
         private IDictionary<Guid, IDictionary<Type, IComponent>> _entityComponentLink;

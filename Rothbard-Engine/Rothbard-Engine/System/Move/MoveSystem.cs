@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    class MoveSystem : ISystem, IUpdatable, IKeyboardListener
+    public class MoveSystem : ISystem, IUpdatable, IKeyboardListener
     {
         // DECLARE an IDictionary of type IDictionary, call it '_entityComponentLink'
         private IDictionary<Guid, IDictionary<Type, IComponent>> _entityComponentLink;

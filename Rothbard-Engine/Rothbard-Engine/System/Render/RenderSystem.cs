@@ -12,7 +12,7 @@ namespace Rothbard_Engine
     /// <summary>
     /// Acts upon position and render components to render relevant entities in the world
     /// </summary>
-    class RenderSystem : ISystem, IUpdatable
+    public class RenderSystem : ISystem, IUpdatable
     {
         // DECLARE an IDictionary of type IDictionary, call it '_entityComponentLink'
         private IDictionary<Guid, IDictionary<Type, IComponent>> _entityComponentLink;

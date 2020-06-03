@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    interface ISystem
+    public interface ISystem
     {
         void Set(IDictionary<Guid, IDictionary<Type, IComponent>> pDictionary);
     }
