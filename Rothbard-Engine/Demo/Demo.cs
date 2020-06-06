@@ -22,7 +22,6 @@ namespace Demo
 
         private void Begin()
         {
-            SubscribeListener(_world);
             _world.Load();
         }
 
