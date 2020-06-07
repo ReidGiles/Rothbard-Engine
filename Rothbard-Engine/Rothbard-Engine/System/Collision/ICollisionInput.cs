@@ -13,11 +13,13 @@ namespace Rothbard_Engine
         /// </summary>
         /// <returns></returns>
         Guid[] GetEntityKeys();
+
         /// <summary>
         /// Returrs an array containing two colliding entity tags
         /// </summary>
         /// <returns></returns>
         string[] GetEntityTags();
+
         /// <summary>
         /// Returns a dictionary containing the components of each collided entity
         /// </summary>

@@ -2,7 +2,7 @@
 
 namespace Rothbard_Engine
 {
-    interface IUpdatable
+    public interface IUpdatable
     {
         void Update(GameTime pGameTime);
     }

@@ -76,7 +76,7 @@ namespace Rothbard_Engine
                         {
                             components.Add(component);
                         }
-                        Console.WriteLine("CM: Component retrieved");
+                        //Console.WriteLine("CM: Component retrieved");
                         return components;
                     }
                 }

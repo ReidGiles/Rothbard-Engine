@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    interface IKeyboardListener
+    public interface IKeyboardListener
     {
         void OnNewKeyboardInput(object sender, IKeyboardInput args);
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -106,6 +107,7 @@ namespace Rothbard_Engine
             _systemManager.AddSystem(moveSystem);
             _systemManager.AddSystem(new RenderSystem(_spriteBatch, _graphics, Content));
             _systemManager.AddSystem(_collisionSystem);
+            _systemManager.AddSystem(_inputManager as ISystem);
 
             // Declare engine ready for use
             _ready = true;
@@ -143,7 +145,7 @@ namespace Rothbard_Engine
             base.Draw(gameTime);
         }
 
-        public Guid Spawn(float xPos, float yPos, Texture2D texture, Vector2 velocity, bool keyboardListener, bool mouseListener)
+        public Guid Spawn(string name, float xPos, float yPos, Texture2D texture, Vector2 velocity, bool keyboardListener, bool mouseListener)
         {
             Guid entity = _entityManager.Request();
 
@@ -158,6 +160,7 @@ namespace Rothbard_Engine
             ((Move)move).Velocity = velocity;
             ((InputListener)inputListener).KeyboardListener = keyboardListener; ((InputListener)inputListener).MouseListener = mouseListener;
             ((Collider)collider).Rectangle = new Rectangle(Convert.ToInt32(xPos), Convert.ToInt32(yPos), texture.Width, texture.Height);
+            ((Collider)collider).Tag = name;
 
             _componentManager.Assign(position, entity);
             _componentManager.Assign(render, entity);
@@ -180,6 +183,20 @@ namespace Rothbard_Engine
         public void SubscribeListener(ICollisionListener listener)
         {
             ((ICollisionPublisher)_collisionSystem).AddListener(listener.OnNewCollision);
+        }
+
+        /// <summary>
+        /// Subscribe an keyboard listener
+        /// </summary>
+        /// <param name="listener"></param>
+        public void SubscribeKeyboardListener(IKeyboardListener listener)
+        {
+            _inputManager.AddListener((listener).OnNewKeyboardInput);
+        }
+
+        public IList<IComponent> GetComponents(Guid guid)
+        {
+            return _componentManager.Get(guid);
         }
     }
 }

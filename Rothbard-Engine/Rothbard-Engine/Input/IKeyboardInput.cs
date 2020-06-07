@@ -13,5 +13,7 @@ namespace Rothbard_Engine
         /// Returns keys pressed on keyboard
         /// </summary>
         Keys[] GetInputKey();
+
+        IDictionary<Guid, IDictionary<Type, IComponent>> GetEntityComponents();
     }
 }

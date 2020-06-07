@@ -12,6 +12,7 @@ namespace Rothbard_Engine
         void Assign(IComponent pComponent, Guid pEntity);
         void Terminate(Guid pEntity);
         IList<IComponent> Get(Type pcomponentType);
+        IList<IComponent> Get(Guid pGuid);
         IDictionary<Guid, IDictionary<Type, IComponent>> Get();
     }
 }

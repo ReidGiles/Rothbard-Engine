@@ -41,6 +41,8 @@ namespace Demo
                 Begin();
                 _ready = false;
             }
+            if (_world != null)
+                _world.Update(gameTime);
         }
     }
 }

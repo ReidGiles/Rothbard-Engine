@@ -11,8 +11,11 @@ namespace Rothbard_Engine
     /// <summary>
     /// Constructor for InputManager
     /// </summary>
-    class InputManager : IInputManager, IUpdatable
+    class InputManager : IInputManager, ISystem, IUpdatable
     {
+        // DECLARE an IDictionary of type IDictionary, call it '_entityComponentLink'
+        private IDictionary<Guid, IDictionary<Type, IComponent>> _entityComponentLink;
+
         private event EventHandler<IKeyboardInput> NewKeyboardInput;
         private event EventHandler<IMouseInput> NewMouseInput;
 
@@ -21,6 +24,8 @@ namespace Rothbard_Engine
         /// </summary>
         public InputManager()
         {
+            // INSTANTIATE _entityComponentLink
+            _entityComponentLink = new Dictionary<Guid, IDictionary<Type, IComponent>>();
         }
 
         /// <summary>
@@ -28,8 +33,7 @@ namespace Rothbard_Engine
         /// </summary>
         private void OnNewKeyboardInput()
         {
-            // pass the parameters into the new keybaord input then add to NewKeyboardInput
-            IKeyboardInput args = new KeyboardHandler();
+            IKeyboardInput args = new KeyboardHandler(_entityComponentLink);
             NewKeyboardInput(this, args);
         }
 
@@ -54,6 +58,11 @@ namespace Rothbard_Engine
             NewMouseInput += handler;
         }
 
+        public void Set(IDictionary<Guid, IDictionary<Type, IComponent>> pDictionary)
+        {
+            _entityComponentLink = pDictionary;
+        }
+
         public void Update(GameTime pGameTime)
         {
             // look for changes in the input
@@ -61,7 +70,7 @@ namespace Rothbard_Engine
             if (NewKeyboardInput != null)
             {
                 // update listeners
-                IKeyboardInput args = new KeyboardHandler();
+                IKeyboardInput args = new KeyboardHandler(_entityComponentLink);
                 if (args.GetInputKey().Length > 0)
                     OnNewKeyboardInput();
             }

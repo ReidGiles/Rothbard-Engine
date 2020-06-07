@@ -12,6 +12,13 @@ namespace Rothbard_Engine
         // list of Keys
         Keys[] _inputKey;
 
+        private IDictionary<Guid, IDictionary<Type, IComponent>> _entityComponentLink;
+
+        public KeyboardHandler(IDictionary<Guid, IDictionary<Type, IComponent>> entityComponentLink)
+        {
+            _entityComponentLink = entityComponentLink;
+        }
+
         /// <summary>
         /// Returns keys pressed on keyboard
         /// </summary>
@@ -23,6 +30,20 @@ namespace Rothbard_Engine
             _inputKey = keyboardState.GetPressedKeys();
             //return _inputKeys
             return _inputKey;
+        }
+
+        public IDictionary<Guid, IDictionary<Type, IComponent>> GetEntityComponents()
+        {
+            IDictionary<Guid, IDictionary<Type, IComponent>> entityComponents;
+            entityComponents = new Dictionary<Guid, IDictionary<Type, IComponent>>();
+            foreach (Guid entity in _entityComponentLink.Keys)
+            {
+                if (((InputListener)_entityComponentLink[entity][typeof(InputListener)]).KeyboardListener)
+                {
+                    entityComponents.Add(entity, _entityComponentLink[entity]);
+                }
+            }
+            return entityComponents;
         }
     }
 }
