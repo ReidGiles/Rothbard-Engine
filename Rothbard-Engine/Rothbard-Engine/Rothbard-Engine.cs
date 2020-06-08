@@ -145,7 +145,7 @@ namespace Rothbard_Engine
             base.Draw(gameTime);
         }
 
-        public Guid Spawn(string name, float xPos, float yPos, Texture2D texture, Vector2 velocity, bool keyboardListener, bool mouseListener)
+        public Guid Spawn(string name, float xPos, float yPos, Texture2D texture, Vector2 speed, bool keyboardListener, bool mouseListener)
         {
             Guid entity = _entityManager.Request();
 
@@ -157,7 +157,7 @@ namespace Rothbard_Engine
 
             ((Position)position).XPos = xPos; ((Position)position).YPos = yPos;
             ((Render)render).Texture = texture;
-            ((Move)move).Velocity = velocity;
+            ((Move)move).Speed = speed;
             ((InputListener)inputListener).KeyboardListener = keyboardListener; ((InputListener)inputListener).MouseListener = mouseListener;
             ((Collider)collider).Rectangle = new Rectangle(Convert.ToInt32(xPos), Convert.ToInt32(yPos), texture.Width, texture.Height);
             ((Collider)collider).Tag = name;

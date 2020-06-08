@@ -30,7 +30,7 @@ namespace Demo
         {
             _player1 = new Player1(_demo.Spawn("player", 25, 900 / 2, _demo.LoadTexture("Paddle"), new Vector2(5, 5), true, false));            
             _player2 = new Player2(_demo.Spawn("player", 1600 - 25 - _demo.LoadTexture("Paddle").Width, 900 / 2, _demo.LoadTexture("Paddle"), new Vector2(5, 5), true, false));           
-            _ball = new Ball(_demo.Spawn("ball", 1600 / 2, 900 / 2, _demo.LoadTexture("Ball"), new Vector2(5, 0), false, false));
+            _ball = new Ball(_demo.Spawn("ball", 1600 / 2, 900 / 2, _demo.LoadTexture("Ball"), new Vector2(5, 5), false, false));
 
             _demo.SubscribeListener(_player1);
             _demo.SubscribeListener(_player2);

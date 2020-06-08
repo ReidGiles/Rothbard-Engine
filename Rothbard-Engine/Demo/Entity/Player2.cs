@@ -55,9 +55,9 @@ namespace Demo
                 foreach (Keys k in _args.GetInputKey())
                 {
                     if (k == Keys.Up && ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).YPos > 0)
-                        ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).YPos -= ((IMove)args.GetEntityComponents()[_guid][typeof(Move)]).Velocity.Y;
+                        ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).YPos -= ((IMove)args.GetEntityComponents()[_guid][typeof(Move)]).Speed.Y;
                     if (k == Keys.Down && ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).YPos < 900 - 100)
-                        ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).YPos += ((IMove)args.GetEntityComponents()[_guid][typeof(Move)]).Velocity.Y;
+                        ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).YPos += ((IMove)args.GetEntityComponents()[_guid][typeof(Move)]).Speed.Y;
                 }
             }
         }

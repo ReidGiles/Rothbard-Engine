@@ -10,6 +10,7 @@ namespace Rothbard_Engine
     public interface IMove
     {
         Vector2 Velocity { get; set; }
+        Vector2 Speed { get; set; }
         Vector2 Acceleration { get; set; }
         Vector2 Damping { get; set; }
     }

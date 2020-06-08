@@ -12,5 +12,7 @@ namespace Rothbard_Engine
         public Vector2 Velocity { get; set; }
         public Vector2 Acceleration { get; set; }
         public Vector2 Damping { get; set; }
+        public Vector2 Speed { get; set; }
+        public float Rotation { get; set; }
     }
 }
