@@ -41,9 +41,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entity\Ball.cs" />
     <Compile Include="Entity\Hostile.cs" />
     <Compile Include="Demo.cs" />
-    <Compile Include="Entity\Player.cs" />
+    <Compile Include="Entity\Player1.cs" />
+    <Compile Include="Entity\Player2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="World.cs" />

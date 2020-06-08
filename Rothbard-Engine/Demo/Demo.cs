@@ -22,6 +22,7 @@ namespace Demo
 
         private void Begin()
         {
+            GraphicsDevice.Clear(Color.Red);
             _world.Load();
         }
 

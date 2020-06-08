@@ -12,9 +12,10 @@ namespace Demo
     {
         private Demo _demo;
 
-        private Player _player;
+        private Player1 _player1;
+        private Player2 _player2;
 
-        private IList<Hostile> _hostiles;
+        private Ball _ball;
 
         /// <summary>
         /// Constructor for World
@@ -23,34 +24,29 @@ namespace Demo
         public World(Demo demo)
         {
             _demo = demo;
-            _hostiles = new List<Hostile>();
         }
 
         public void Load()
         {
-            _player = new Player(_demo.Spawn("player", 700, 100, _demo.LoadTexture("Hostile"), new Vector2(5, 5), true, false));
-            _demo.SubscribeListener(_player);
+            _player1 = new Player1(_demo.Spawn("player", 25, 900 / 2, _demo.LoadTexture("Paddle"), new Vector2(5, 5), true, false));            
+            _player2 = new Player2(_demo.Spawn("player", 1600 - 25 - _demo.LoadTexture("Paddle").Width, 900 / 2, _demo.LoadTexture("Paddle"), new Vector2(5, 5), true, false));           
+            _ball = new Ball(_demo.Spawn("ball", 1600 / 2, 900 / 2, _demo.LoadTexture("Ball"), new Vector2(5, 0), false, false));
 
-            _hostiles.Add(new Hostile(_demo.Spawn("hostile", 5, 50, _demo.LoadTexture("Hostile"), new Vector2(2, 0), false, false)));
-            _hostiles.Add(new Hostile(_demo.Spawn("hostile", 5, 250, _demo.LoadTexture("Hostile"), new Vector2(2, 0), false, false)));
-            _hostiles.Add(new Hostile(_demo.Spawn("hostile", 5, 450, _demo.LoadTexture("Hostile"), new Vector2(2, 0), false, false)));
-            _hostiles.Add(new Hostile(_demo.Spawn("hostile", 5, 650, _demo.LoadTexture("Hostile"), new Vector2(2, 0), false, false)));
-            foreach (Hostile hostile in _hostiles)
-            {
-                _demo.SubscribeListener(hostile);
-            }
+            _demo.SubscribeListener(_player1);
+            _demo.SubscribeListener(_player2);
+            _demo.SubscribeListener(_ball);
 
-            _demo.SubscribeKeyboardListener(_player);
+            _demo.SubscribeKeyboardListener(_player1);
+            _demo.SubscribeKeyboardListener(_player2);
+            _demo.SubscribeKeyboardListener(_ball);
         }
 
         public void Update(GameTime gameTime)
         {
-            _player.Update(gameTime);
-            foreach (Hostile hostile in _hostiles)
-            {
-                hostile.Update(gameTime);
-                hostile.SetComponents(_demo.GetComponents(hostile.GetGuid()));
-            }
+            _player1.Update(gameTime);
+            _player2.Update(gameTime);
+            _ball.Update(gameTime);
+            _ball.SetComponents(_demo.GetComponents(_ball.GetGuid()));
         }
     }
 }

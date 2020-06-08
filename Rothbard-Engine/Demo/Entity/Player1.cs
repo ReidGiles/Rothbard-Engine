@@ -12,7 +12,7 @@ namespace Demo
     /// <summary>
     /// Stores individual entity behaviour logic
     /// </summary>
-    class Player : ICollisionListener, IKeyboardListener, IUpdatable
+    class Player1 : ICollisionListener, IKeyboardListener, IUpdatable
     {
         private Guid _guid;
 
@@ -21,7 +21,7 @@ namespace Demo
 
         private bool _inputFlag;
 
-        public Player(Guid pGuid)
+        public Player1(Guid pGuid)
         {
             _guid = pGuid;
 
@@ -54,13 +54,9 @@ namespace Demo
                 // NOTE: Make keys generic, set by user in component
                 foreach (Keys k in _args.GetInputKey())
                 {
-                    if (k == Keys.Left)
-                        ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).XPos -= ((IMove)args.GetEntityComponents()[_guid][typeof(Move)]).Velocity.X;
-                    if (k == Keys.Right)
-                        ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).XPos += ((IMove)args.GetEntityComponents()[_guid][typeof(Move)]).Velocity.X;
-                    if (k == Keys.Up)
+                    if (k == Keys.W && ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).YPos > 0)
                         ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).YPos -= ((IMove)args.GetEntityComponents()[_guid][typeof(Move)]).Velocity.Y;
-                    if (k == Keys.Down)
+                    if (k == Keys.S && ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).YPos < 900 - 100)
                         ((IPosition)args.GetEntityComponents()[_guid][typeof(Position)]).YPos += ((IMove)args.GetEntityComponents()[_guid][typeof(Move)]).Velocity.Y;
                 }
             }
