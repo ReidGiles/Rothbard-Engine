@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
+    /// <summary>
+    /// Manages the lifecycle of systems
+    /// </summary>
     interface ISystemManager
     {
         /// <summary>
