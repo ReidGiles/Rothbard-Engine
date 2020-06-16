@@ -10,6 +10,7 @@ namespace Demo
     /// </summary>
     public class Demo : RothbardEngine
     {
+        // DECLARE a World, call it '_world'
         private World _world;
 
         /// <summary>
@@ -17,12 +18,16 @@ namespace Demo
         /// </summary>
         public Demo()
         {
+            // INSTANTIATE '_world'
             _world = new World(this);
         }
 
+        /// <summary>
+        /// Loads the game world
+        /// </summary>
         private void Begin()
         {
-            GraphicsDevice.Clear(Color.Red);
+            // Load the game world
             _world.Load();
         }
 
@@ -42,6 +47,7 @@ namespace Demo
                 Begin();
                 _ready = false;
             }
+            // Update the world if it exists
             if (_world != null)
                 _world.Update(gameTime);
         }
