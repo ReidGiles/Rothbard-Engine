@@ -7,27 +7,31 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
+    /// <summary>
+    /// Stores mouse event data
+    /// </summary>
     class MouseHandler : EventArgs, IMouseInput
     {
-        // list to store the mouse posiition
-        private int[] mouseVal;
+        // DECLARE an int[] to store the mouse position, call it '_mouseVal'
+        private int[] _mouseVal;
 
         /// <summary>
-        /// Method to return the mouse location
+        /// Returns the mouse location
         /// </summary>
         /// <returns></returns>
         public int[] GetMouseVal()
         {
-            // get the mouse state
+            // DECLARE an INSTANTIATE a new MouseState, call it 'mouseState'
             MouseState mouseState = Mouse.GetState();
-            // check if the mouse button is press
+
+            // IF the left mouse button has been pressed
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                // set the mouse val to the position of the mouse
-                mouseVal = new int[] { mouseState.X, mouseState.Y };
+                // SET _mouseVal to the current position of the mouse
+                _mouseVal = new int[] { mouseState.X, mouseState.Y };
             }
-            //return the mouseVal
-            return mouseVal;
+
+            return _mouseVal;
         }
     }
 }
