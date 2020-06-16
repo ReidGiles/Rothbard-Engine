@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    /// <summary>
-    /// Stores mouse event data
-    /// </summary>
     interface IMouseInput
     {
         /// <summary>

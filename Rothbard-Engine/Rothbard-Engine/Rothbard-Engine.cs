@@ -25,6 +25,11 @@ namespace Rothbard_Engine
         private IComponentManager _componentManager;
 
         /// <summary>
+        /// The scene manager
+        /// </summary>
+        private ISceneManager _sceneManager;
+
+        /// <summary>
         /// The input manager
         /// </summary>
         private IInputManager _inputManager;
@@ -72,6 +77,9 @@ namespace Rothbard_Engine
             // INSTANTIATE componet manager
             _componentManager = new ComponentManager();
 
+            // INSTANTIATE scene manager
+            _sceneManager = new SceneManager();
+
             // INSTANTIATE input manager
             _inputManager = new InputManager();
 
@@ -92,14 +100,13 @@ namespace Rothbard_Engine
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+        
+            MoveSystem moveSystem = new MoveSystem();
+            _inputManager.AddListener(((IKeyboardListener)moveSystem).OnNewKeyboardInput);
 
-            // Add render system to system manager
+            _systemManager.AddSystem(moveSystem);
             _systemManager.AddSystem(new RenderSystem(_spriteBatch, _graphics, Content));
-
-            // Add collision system to system manager
             _systemManager.AddSystem(_collisionSystem);
-
-            // Add input manager to system manager
             _systemManager.AddSystem(_inputManager as ISystem);
 
             // Declare engine ready for use
@@ -121,10 +128,9 @@ namespace Rothbard_Engine
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Update the input manager
+            //((IUpdatable)_systemManager).Update(gameTime);
+            ((IUpdatable)_entityManager).Update(gameTime);
             ((IUpdatable)_inputManager).Update(gameTime);
-
-            // Update base
             base.Update(gameTime);
         }
 
@@ -134,79 +140,39 @@ namespace Rothbard_Engine
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            // Set background to transparent
             GraphicsDevice.Clear(Color.Transparent);
-
-            // Update the system manager
             ((IUpdatable)_systemManager).Update(gameTime);
-
-
             base.Draw(gameTime);
         }
 
-        /// <summary>
-        /// Creates a game entity and assigns starting components
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="xPos"></param>
-        /// <param name="yPos"></param>
-        /// <param name="texture"></param>
-        /// <param name="speed"></param>
-        /// <param name="keyboardListener"></param>
-        /// <param name="mouseListener"></param>
-        /// <returns></returns>
         public Guid Spawn(string name, float xPos, float yPos, Texture2D texture, Vector2 speed, bool keyboardListener, bool mouseListener)
         {
-            // Request a unique entity Guid
             Guid entity = _entityManager.Request();
 
-            // Request a new position component
             IComponent position = _componentManager.Request<Position>();
-            // Request a new render component
             IComponent render = _componentManager.Request<Render>();
-            // Request a new move component
             IComponent move = _componentManager.Request<Move>();
-            // Request a new input listener component
             IComponent inputListener = _componentManager.Request<InputListener>();
-            // Request a new collider component
             IComponent collider = _componentManager.Request<Collider>();
 
-            // SET position component 'XPos' property
             ((Position)position).XPos = xPos; ((Position)position).YPos = yPos;
-            // SET render component 'Texture' property
             ((Render)render).Texture = texture;
-            // SET move component 'Speed' property
             ((Move)move).Speed = speed;
-            // SET input listener component 'KeyboardListener' property
             ((InputListener)inputListener).KeyboardListener = keyboardListener; ((InputListener)inputListener).MouseListener = mouseListener;
-            // SET collider component 'Rectangle' property
             ((Collider)collider).Rectangle = new Rectangle(Convert.ToInt32(xPos), Convert.ToInt32(yPos), texture.Width, texture.Height);
-            // SET collider component 'Tag' property
             ((Collider)collider).Tag = name;
 
-            // Assign position component to entity
             _componentManager.Assign(position, entity);
-            // Assign render component to entity
             _componentManager.Assign(render, entity);
-            // Assign move component to entity
             _componentManager.Assign(move, entity);
-            // Assign input listener component to entity
             _componentManager.Assign(inputListener, entity);
-            // Assign collider component to entity
             _componentManager.Assign(collider, entity);
 
-            // return entity Guid
             return entity;
         }
 
-        /// <summary>
-        /// Loads and returns a texture
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <returns></returns>
         public Texture2D LoadTexture(string filename)
         {
-            // Return texture loaded via Content at passed file location
             return Content.Load<Texture2D>(filename);
         }
 
@@ -216,7 +182,6 @@ namespace Rothbard_Engine
         /// <param name="listener"></param>
         public void SubscribeListener(ICollisionListener listener)
         {
-            // Subscribe passed collision listener to the collision system
             ((ICollisionPublisher)_collisionSystem).AddListener(listener.OnNewCollision);
         }
 
@@ -226,41 +191,12 @@ namespace Rothbard_Engine
         /// <param name="listener"></param>
         public void SubscribeKeyboardListener(IKeyboardListener listener)
         {
-            // Subscribe passed keyboard listener to the input manager
             _inputManager.AddListener((listener).OnNewKeyboardInput);
         }
 
-        /// <summary>
-        /// Return a list of components associated with a specific entity
-        /// </summary>
-        /// <param name="guid"></param>
-        /// <returns></returns>
         public IList<IComponent> GetComponents(Guid guid)
         {
-            // Request components of a specific entity from the component manager
             return _componentManager.Get(guid);
-        }
-
-        /// <summary>
-        /// Terminates an entity and its components
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public bool TerminateEntity(Guid entity)
-        {
-            // Attempt to terminate the entity and its components
-            try
-            {
-                _componentManager.Terminate(entity);
-                _entityManager.Terminate(entity);
-
-                return true;
-            }
-            // Return false if failed
-            catch
-            {
-                return false;
-            }
         }
     }
 }

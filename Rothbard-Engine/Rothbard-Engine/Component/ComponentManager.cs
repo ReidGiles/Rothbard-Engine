@@ -29,11 +29,6 @@ namespace Rothbard_Engine
             _entityComponentLink = new Dictionary<Guid, IDictionary<Type, IComponent>>();
         }
 
-        /// <summary>
-        /// Factory method for creating components of type IComponent
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
         public IComponent Request<T>() where T : IComponent, new()
         {
             return new T();
@@ -45,25 +40,15 @@ namespace Rothbard_Engine
         /// <param name="pcomponentType"></param>
         public IList<IComponent> Get(Type pcomponentType)
         {
-            // DECLARE an IList, call it 'components'
-            IList<IComponent> components;
-
-            // INSTANTIATE components
-            components = new List<IComponent>();
-
-            // IF _components contains at least one key
+            IList<IComponent> components = new List<IComponent>();
             if (_components.Keys != null)
             {
-                // For every type in _components keys
                 foreach (Type componentType in _components.Keys)
                 {
-                    // IF the key is equal to the passed type
                     if (componentType == pcomponentType)
                     {
-                        // For every component of specified type in _components
                         foreach (IComponent component in _components[componentType])
                         {
-                            // Add component to 'components'
                             components.Add(component);
                         }
                         return components;
@@ -80,27 +65,18 @@ namespace Rothbard_Engine
         /// <returns></returns>
         public IList<IComponent> Get(Guid pEntity)
         {
-            // DECLARE an IList, call it 'components'
-            IList<IComponent> components;
-
-            // INSTANTIATE components
-            components = new List<IComponent>();
-
-            // IF _entityComponentLink contains at least one key
+            IList<IComponent> components = new List<IComponent>();
             if (_entityComponentLink.Keys != null)
             {
-                // For every entity in _entityComponentLink keys
                 foreach (Guid entity in _entityComponentLink.Keys)
                 {
-                    // If the key is equal to the passed entity Guid
                     if (entity == pEntity)
                     {
-                        // For every component associated with the passed entity
                         foreach (IComponent component in _entityComponentLink[entity].Values)
                         {
-                            // Add component to 'components'
                             components.Add(component);
                         }
+                        //Console.WriteLine("CM: Component retrieved");
                         return components;
                     }
                 }
@@ -123,7 +99,6 @@ namespace Rothbard_Engine
         /// <param name="pEntity"></param>
         public void Terminate(Guid pEntity)
         {
-            // Retrieve list of components associated with passed entity to be terminated
             IList<IComponent> _toBeTerminated = Get(pEntity);
         }
 
@@ -145,49 +120,48 @@ namespace Rothbard_Engine
         {
         }
 
-        /// <summary>
-        /// Assigns a component to a specified entity
-        /// </summary>
-        /// <param name="pComponent"></param>
-        /// <param name="pEntity"></param>
         public void Assign(IComponent pComponent, Guid pEntity)
-        {
-            // IF _entityComponentLink contains at least one key
-            if (_entityComponentLink.Keys != null)
+        {        
+            /*if (_components.Keys != null)
             {
-                // Declare a bool and set it false to track if requested entity exists
-                bool entityFound = false;
-
-                // For every Guid in _entityComponentLink keys
-                foreach (Guid entity in _entityComponentLink.Keys)
+                bool componentFound = false;
+                foreach (Type componentType in _components.Keys)
                 {
-                    // If the entity is equal to the passed entity
-                    if (entity == pEntity)
+                    if (componentType == pComponent.GetType())
                     {
-                        // Assign the passed component to the requested entity in _entityComponentLink
-                        _entityComponentLink[entity].Add(pComponent.GetType(), pComponent);
-
-                        // Flag component found
-                        entityFound = true;
-
-                        Console.WriteLine("CM: Component added to existing dictionary");
-
+                        _components[componentType].Add(pComponent);
+                        componentFound = true;
+                        Console.WriteLine("CM: Component addeded to existing list");
                         break;
                     }
                 }
-
-                // If requested entity was not found as an existing key in _entityComponentLink, create a new entry
-                if (!entityFound)
+                if (!componentFound)
                 {
-                    // Create a new dictionary to store the new entities components
+                    IList<IComponent> newComponentList = new List<IComponent>();
+                    _components.Add(pComponent.GetType(), newComponentList);
+                    Console.WriteLine("CM: Component addeded to new list");
+                }
+            }*/
+
+            if (_entityComponentLink.Keys != null)
+            {
+
+                bool componentFound = false;
+                foreach (Guid entity in _entityComponentLink.Keys)
+                {
+                    if (entity == pEntity)
+                    {
+                        _entityComponentLink[entity].Add(pComponent.GetType(), pComponent);
+                        componentFound = true;
+                        Console.WriteLine("CM: Component added to existing dictionary");
+                        break;
+                    }
+                }
+                if (!componentFound)
+                {
                     IDictionary<Type, IComponent> newComponentDictionary = new Dictionary<Type, IComponent>();
-
-                    // Add starting component to newComponentDictionary
                     newComponentDictionary.Add(pComponent.GetType(), pComponent);
-
-                    // Link the new entity and its component dictionary as an entry in _entityComponentLink
                     _entityComponentLink.Add(pEntity, newComponentDictionary);
-
                     Console.WriteLine("CM: Component addeded to new dictionary");
                 }
             }

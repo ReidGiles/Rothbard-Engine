@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    /// <summary>
-    /// Manages the operation and lifecycle of all systems
-    /// </summary>
     class SystemManager : ISystemManager, IUpdatable
     {
         // DECLARE an IList of type ISystem, call it '_systems'

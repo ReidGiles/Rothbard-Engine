@@ -23,7 +23,6 @@ namespace Rothbard_Engine
         // DECLARE a GraphicsDeviceManager, call it '_graphicsDeviceManager'
         private GraphicsDeviceManager _graphicsDeviceManager;
 
-        // DECLARE a ContentManager, call it '_contentManager'
         private ContentManager _contentManager;
 
         /// <summary>
@@ -34,36 +33,27 @@ namespace Rothbard_Engine
             // INSTANTIATE _entityComponentLink
             _entityComponentLink = new Dictionary<Guid, IDictionary<Type, IComponent>>();
 
-            // SET '_spriteBatch' to 'pSpriteBatch'
+            // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = pSpriteBatch;
 
-            // SET '_graphicsDeviceManager' to 'pGraphicsDeviceManager'
             _graphicsDeviceManager = pGraphicsDeviceManager;
 
-            // SET '_contentManager' to 'pContentManager'
             _contentManager = pContentManager;
+
+            // Get an IList containing all active position components
+            //IList<IComponent> postionList = pComponentManager.Get(typeof(Position));
 
             Console.WriteLine("RS: Instantiated");
         }
 
-        /// <summary>
-        /// Updates the _entityComponentLink dictionary
-        /// </summary>
-        /// <param name="pDictionary"></param>
         public void Set(IDictionary<Guid, IDictionary<Type, IComponent>> pDictionary)
         {
-            // SET '_entityComponentLink' to 'pDictionary'
             _entityComponentLink = pDictionary;
         }
 
-        /// <summary>
-        /// Updates the Render System
-        /// </summary>
-        /// <param name="pGameTime"></param>
         public void Update(GameTime pGameTime)
         {
             _spriteBatch.Begin();
-
             // FOREACH entity in the entity component link dictionary -> render the entity onto the scene
             foreach (Guid entity in _entityComponentLink.Keys)
             {
@@ -72,7 +62,7 @@ namespace Rothbard_Engine
                 Texture2D texture = ((IRender)_entityComponentLink[entity][typeof(Render)]).Texture;
                 _spriteBatch.Draw(texture, new Vector2(x, y), Color.White);
             }
-
+            //_spriteBatch.Draw(, new Vector2(400, 240), Color.White);
             _spriteBatch.End();
             
         }

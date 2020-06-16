@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    public interface ICollisionListener
+    interface ISceneManager
     {
-        void OnNewCollision(object sender, ICollisionInput args);
     }
 }

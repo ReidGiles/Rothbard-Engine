@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace Rothbard_Engine
 {
-    /// <summary>
-    /// Collision event publisher
-    /// </summary>
     interface ICollisionPublisher
     {
         /// <summary>

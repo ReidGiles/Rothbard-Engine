@@ -69,6 +69,10 @@
     <Compile Include="Input\MouseHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scene\ISceneGraph.cs" />
+    <Compile Include="Scene\ISceneManager.cs" />
+    <Compile Include="Scene\SceneGraph.cs" />
+    <Compile Include="Scene\SceneManager.cs" />
     <Compile Include="System\Collision\CollisionHandler.cs" />
     <Compile Include="System\Collision\CollisionSystem.cs" />
     <Compile Include="System\Collision\ICollisionInput.cs" />
@@ -76,6 +80,7 @@
     <Compile Include="System\Collision\ICollisionPublisher.cs" />
     <Compile Include="System\ISystem.cs" />
     <Compile Include="System\ISystemManager.cs" />
+    <Compile Include="System\Move\MoveSystem.cs" />
     <Compile Include="System\Render\RenderSystem.cs" />
     <Compile Include="System\SystemManager.cs" />
     <Compile Include="System\Update\IUpdatable.cs" />
