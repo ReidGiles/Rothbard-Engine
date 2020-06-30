@@ -12,7 +12,7 @@ namespace Demo
     /// <summary>
     /// Stores Player1 behaviour logic
     /// </summary>
-    class Player1 : IKeyboardListener
+    public class Player1 : IKeyboardListener
     {
         // DECLARE a Guid, call it '_guid'
         private Guid _guid;

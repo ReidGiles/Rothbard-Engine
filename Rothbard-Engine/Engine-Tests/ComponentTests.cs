@@ -5,9 +5,15 @@ using Rothbard_Engine;
 
 namespace Engine_Tests
 {
+    /// <summary>
+    /// Component test class. Ensures components are capable of storing the required data.
+    /// </summary>
     [TestClass]
-    public class ComponentTests
+    public class ComponentTests : RothbardEngine
     {
+        /// <summary>
+        /// Test a Collider component with expected data
+        /// </summary>
         [TestMethod]
         public void ColliderComponentTest()
         {
@@ -25,6 +31,9 @@ namespace Engine_Tests
             Assert.AreEqual(expectedTag, colliderComponent.Tag, "Collider component 'Tag' property initialised incorrectly");
         }
 
+        /// <summary>
+        /// Test a InputListener component with expected data
+        /// </summary>
         [TestMethod]
         public void InputListenerComponentTest()
         {
@@ -42,6 +51,9 @@ namespace Engine_Tests
             Assert.AreEqual(expectedMouseListener, inputListenerComponent.MouseListener, "InputListener component 'MouseListener' property initialised incorrectly");
         }
 
+        /// <summary>
+        /// Test a Move component with expected data
+        /// </summary>
         [TestMethod]
         public void MoveComponentTest()
         {
@@ -62,6 +74,9 @@ namespace Engine_Tests
             Assert.AreEqual(expectedDamping, moveComponent.Damping, "Move component 'Damping' property initialised incorrectly");
         }
 
+        /// <summary>
+        /// Test a Position component with expected data
+        /// </summary>
         [TestMethod]
         public void PositionComponentTest()
         {
@@ -79,15 +94,23 @@ namespace Engine_Tests
             Assert.AreEqual(expectedYPos, positionComponent.YPos, "Position component 'YPos' property initialised incorrectly");
         }
 
+        /// <summary>
+        /// Test a Render component with expected data
+        /// </summary>
         [TestMethod]
         public void RenderComponentTest()
         {
-            // Arrange
-            IRender renderComponent = new Render();
+            if (_ready)
+            {
+                // Arrange
+                IRender renderComponent = new Render();
 
-            // Act
+                // Act
+                renderComponent.Texture = LoadTexture("paddle");
 
-            // Assert
+                // Assert
+                Assert.AreEqual(LoadTexture("paddle"), renderComponent.Texture, "Render component 'Texture' property initialised incorrectly");
+            }
         }
     }
 }

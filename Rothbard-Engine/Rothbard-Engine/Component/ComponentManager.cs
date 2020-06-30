@@ -123,8 +123,8 @@ namespace Rothbard_Engine
         /// <param name="pEntity"></param>
         public void Terminate(Guid pEntity)
         {
-            // Retrieve list of components associated with passed entity to be terminated
-            IList<IComponent> _toBeTerminated = Get(pEntity);
+            // Remove passed entity from the dictionary
+            _entityComponentLink.Remove(pEntity);
         }
 
         /// <summary>

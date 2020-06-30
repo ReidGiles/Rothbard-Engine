@@ -62,6 +62,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Demo\Demo.csproj">
+      <Project>{dcb197f5-d557-4009-bd25-c71f28faff5b}</Project>
+      <Name>Demo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rothbard-Engine\Rothbard-Engine.csproj">
       <Project>{d73882f8-bf0f-4b73-a15a-6a9cb8a34e9f}</Project>
       <Name>Rothbard-Engine</Name>

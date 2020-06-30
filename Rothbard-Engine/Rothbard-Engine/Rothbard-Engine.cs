@@ -78,7 +78,7 @@ namespace Rothbard_Engine
             // INSTANTIATE collision system
             _collisionSystem = new CollisionSystem();
 
-            // INSTANTIATE scene manager
+            // INSTANTIATE system manager
             _systemManager = new SystemManager(_componentManager);
 
             base.Initialize();

@@ -47,6 +47,13 @@ namespace Rothbard_Engine
         }
 
         /// <summary>
+        /// Constructor for test purposes
+        /// </summary>
+        public RenderSystem()
+        {
+        }
+
+        /// <summary>
         /// Updates the _entityComponentLink dictionary
         /// </summary>
         /// <param name="pDictionary"></param>

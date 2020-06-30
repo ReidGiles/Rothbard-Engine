@@ -9,7 +9,7 @@ using Rothbard_Engine;
 
 namespace Demo
 {
-    class Ball: ICollisionListener, IUpdatable
+    public class Ball: ICollisionListener, IUpdatable
     {
         // DECLARE a Guid, call it '_guid'
         private Guid _guid;
@@ -134,29 +134,32 @@ namespace Demo
         public void Update(GameTime pGameTime)
         {
             // IF '_components' has been populated
-            if (_components.Count > 0)
+            if (_components != null)
             {
-                // Serve the ball
-                Serve();
-                
-                // Update ball velocity based on rotation
-                _components.OfType<Move>().First().Velocity = new Vector2((float)Math.Sin(_components.OfType<Move>().First().Rotation), (float)Math.Cos(_components.OfType<Move>().First().Rotation));
-
-                // Increment ball position by ball speed to simulate movement
-                _components.OfType<Position>().First().XPos += (_components.OfType<Move>().First().Speed.X * _facingDirectionX) * _components.OfType<Move>().First().Velocity.X;
-                _components.OfType<Position>().First().YPos += (_components.OfType<Move>().First().Speed.Y * _facingDirectionY) * _components.OfType<Move>().First().Velocity.Y;
-
-                // Flip _facingDirectionY if the ball hits the top or bottom of the screen
-                if (_components.OfType<Position>().First().YPos > 900 - 60)
-                    _facingDirectionY *= -1;
-                if (_components.OfType<Position>().First().YPos < 0)
-                    _facingDirectionY *= -1;
-
-                // IF the ball leaves the screen without hitting a paddle THEN serve the ball again
-                if (_components.OfType<Position>().First().XPos <= 0 || _components.OfType<Position>().First().XPos >= 1600)
+                if (_components.Count > 0)
                 {
-                    // SET '_serveSwitch' to true
-                    _serveSwitch = true;
+                    // Serve the ball
+                    Serve();
+
+                    // Update ball velocity based on rotation
+                    _components.OfType<Move>().First().Velocity = new Vector2((float)Math.Sin(_components.OfType<Move>().First().Rotation), (float)Math.Cos(_components.OfType<Move>().First().Rotation));
+
+                    // Increment ball position by ball speed to simulate movement
+                    _components.OfType<Position>().First().XPos += (_components.OfType<Move>().First().Speed.X * _facingDirectionX) * _components.OfType<Move>().First().Velocity.X;
+                    _components.OfType<Position>().First().YPos += (_components.OfType<Move>().First().Speed.Y * _facingDirectionY) * _components.OfType<Move>().First().Velocity.Y;
+
+                    // Flip _facingDirectionY if the ball hits the top or bottom of the screen
+                    if (_components.OfType<Position>().First().YPos > 900 - 60)
+                        _facingDirectionY *= -1;
+                    if (_components.OfType<Position>().First().YPos < 0)
+                        _facingDirectionY *= -1;
+
+                    // IF the ball leaves the screen without hitting a paddle THEN serve the ball again
+                    if (_components.OfType<Position>().First().XPos <= 0 || _components.OfType<Position>().First().XPos >= 1600)
+                    {
+                        // SET '_serveSwitch' to true
+                        _serveSwitch = true;
+                    }
                 }
             }
         }      
